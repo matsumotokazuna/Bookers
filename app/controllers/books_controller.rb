@@ -10,10 +10,11 @@ class BooksController < ApplicationController
   def create
     book = Book.new(book_params)
     if book.save
-      flash[:notice] = "Book was successfully created!"
+      flash[:success] = "Book was successfully created!"
       redirect_to book_path(book.id) # 投稿詳細画面へリダイレクト
     else
-      render 'index'
+      flash[:failure] = "There is empty data."
+      redirect_to "/books" # 投稿一覧画面へリダイレクト
     end
   end
 
@@ -28,17 +29,18 @@ class BooksController < ApplicationController
   def update
     book = Book.find(params[:id])
     if book.update(book_params)
-      flash[:notice] = "Book was successfully updated!"
+      flash[:success] = "Book was successfully updated!"
       redirect_to book_path(book.id) # 投稿詳細画面へリダイレクト
     else
-      render 'edit'
+      flash[:failure] = "There is empty data."
+      redirect_to edit_book_path(book.id) #投稿編集画面へリダイレクト
     end 
   end
 
   def destroy
     book = Book.find(params[:id])
     book.destroy
-    flash[:notice] = "Book was successfully destroyed."
+    flash[:success] = "Book was successfully destroyed."
     redirect_to "/books" # 投稿一覧画面へリダイレクト
   end
 
