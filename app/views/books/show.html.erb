@@ -1,9 +1,6 @@
 <% if flash[:success] %>
   <p class="success-text"><%= flash[:success] %></p>
 <% end %>
-<% if flash[:failure] %>
-  <p class="failure-text"><%= flash[:failure] %></p>
-<% end %>
 
 <p><strong>Title:</strong><%= @book.title %></p>
 <p><strong>Body:</strong><%= @book.body %></p>
