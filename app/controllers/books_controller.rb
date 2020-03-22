@@ -8,12 +8,13 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.new(book_params)
-    if book.save
+    @book = Book.new(book_params)
+    if @book.save
       flash[:success] = "Book was successfully created!"
-      redirect_to book_path(book.id) # 投稿詳細画面へリダイレクト
+      redirect_to book_path(@book.id) # 投稿詳細画面へリダイレクト
     else
-      redirect_to "/books" # 投稿一覧画面へリダイレクト
+      @books = Book.all
+      render action: :index
     end
   end
 
@@ -26,12 +27,12 @@ class BooksController < ApplicationController
   end
 
   def update
-    book = Book.find(params[:id])
-    if book.update(book_params)
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
       flash[:success] = "Book was successfully updated!"
-      redirect_to book_path(book.id) # 投稿詳細画面へリダイレクト
+      redirect_to book_path(@book.id) # 投稿詳細画面へリダイレクト
     else
-      redirect_to edit_book_path(book.id) #投稿編集画面へリダイレクト
+      render action: :edit
     end 
   end
 
